@@ -2,7 +2,7 @@
 
 **Extract zebrafish gene sequences from Ensembl and generate APE-compatible files in seconds.**
 
-![Gene Builder GUI](https://via.placeholder.com/800x500.png?text=Gene+Builder+GUI+Screenshot)
+![Gene Builder GUI](DOCS/images/gui_success.png)
 
 **Why use this?**
 1.  **Save Time**: 20 minutes of manual work → 30 seconds.
@@ -35,6 +35,7 @@ Double-click **`extract_gene.command`**
 ## Output Examples
 
 ### GenBank Files (APE/SnapGene)
+![APE Output](DOCS/images/ape_visualization.png)
 Color-coded exons, correct UTRs, and metadata.
 
 ### Audit Reports (Text)
