@@ -1,13 +1,8 @@
 # 🧬 Gene Builder
 
-**Extract zebrafish gene sequences from Ensembl and generate APE-compatible files in seconds.**
+**Extract zebrafish gene sequences from Ensembl and generate APE-compatible files and audit reports.**
 
 ![Gene Builder GUI](DOCS/images/gui_success.png)
-
-**Why use this?**
-1.  **Save Time**: 20 minutes of manual work → 30 seconds.
-2.  **Trust**: Every run generates an **Audit Report** with direct Ensembl links to verify decisions.
-3.  **Analysis**: Exon numbers stay consistent across splice variants, making comparison trivial.
 
 ---
 
@@ -39,7 +34,7 @@ Double-click **`extract_gene.command`**
 Color-coded exons, correct UTRs, and metadata.
 
 ### Audit Reports (Text)
-Every decision documented. Makes validation a 2-minute checklist instead of a research project.
+Documents filter results, decision points, and provides direct Ensembl links for verification.
 
 ```text
 GENE: lrfn1
@@ -47,9 +42,12 @@ GENE: lrfn1
    Link: https://ensembl.org/...
 ❌ FILTERED: lrfn1-201 - non-canonical
 
-VALIDATION CHECKLIST (2 min)
-[ ] Transcript count matches Ensembl
-[ ] Exon boundaries match links above
+SANITY CHECKS
+1. Click: [Ensembl gene link]
+   Confirm gene location matches
+2. For transcript lrfn1-202:
+   Click: [Ensembl transcript link]
+   Verify exon boundaries match
 ```
 
 ---
@@ -62,15 +60,15 @@ All settings are in one file: **`config.py`**.
 *   Set default species
 *   Adjust filtering
 
-**Tip**: Copy `config.py` to ChatGPT/Claude and ask: *"Change the exon colors to blue and gold."*
-
 ---
 
 ## Documentation
 
-*   `TROUBLESHOOTING.md` - Common issues and solutions.
-*   `DOCS/USER_GUIDE.md` - Detailed usage instructions.
-*   `DOCS/AGENTS.md` - Share this with AI to help you modify the tool.
+*   `TROUBLESHOOTING.md` - Common issues and solutions
+*   `DOCS/USER_GUIDE.md` - Detailed usage instructions
+*   `DOCS/AUDIT_REPORTS.md` - Understanding audit report contents
+*   `DOCS/AGENTS.md` - Share with AI to help modify the tool
+*   `DOCS/DEVELOPMENT.md` - Technical reference for developers
 
 ## Requirements
 *   macOS 10.15 (Catalina) or later (Intel or Apple Silicon)
