@@ -1,0 +1,41 @@
+GENE EXTRACTION AUDIT - lrfn1
+================================================================================
+Generated: 2025-11-27 03:28
+Gene: ENSDARG00000027602 | Location: chr15:45,994,123-46,132,191
+Verify: https://ensembl.org/Danio_rerio/Gene/Summary?g=ENSDARG00000027602
+
+TRANSCRIPTS
+--------------------------------------------------------------------------------
+✅ KEPT: lrfn1-202 [CANONICAL]
+   https://ensembl.org/Danio_rerio/Transcript/Exons?t=ENSDART00000124704
+❌ FILTERED: lrfn1-201 - non_canonical
+
+FEATURES ANNOTATED
+--------------------------------------------------------------------------------
+
+lrfn1-202:
+  5'UTR          1-224   (224 bp)
+  exon3        225-585   (361 bp)
+  exon4        586-1106  (521 bp)
+  exon5       1107-1561  (455 bp)
+  exon6       1562-1979  (418 bp)
+  3'UTR       1980-2045  (66 bp)
+
+VALIDATION CHECKLIST
+--------------------------------------------------------------------------------
+[ ] Transcript count matches Ensembl
+[ ] Exon boundaries match links above
+[ ] Output looks correct in APE
+
+METHODOLOGY (for papers)
+--------------------------------------------------------------------------------
+Gene sequences extracted using Gene Builder
+(github.com/USERNAME/gene-builder) from Ensembl Release 110.
+Species: danio_rerio. CDS boundaries from Ensembl annotations.
+Exon numbering based on genomic position across variants.
+
+OUTPUT FILES
+--------------------------------------------------------------------------------
+lrfn1_lrfn1-202.gbk (2045 bp, MD5:dfc7bf40)
+
+Report generated: 2025-11-27T03:28:14.435968

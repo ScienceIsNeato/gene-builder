@@ -12,7 +12,7 @@ chmod +x setup.sh
 ```
 
 ### 2. Run
-Double-click `START_GUI.command`
+Double-click `extract_gene.command`
 
 ### 3. Extract
 1. Enter gene symbol (e.g., "lrfn1")

@@ -200,9 +200,13 @@ class GeneBuilderGUI:
             
         except Exception as e:
             self.log(f"❌ Error: {str(e)}")
-            self.root.after(0, lambda: messagebox.showerror(
+            
+            # Capture the error string immediately to avoid closure issues
+            error_msg = str(e)
+            
+            self.root.after(0, lambda msg=error_msg: messagebox.showerror(
                 "Error",
-                f"Failed to extract gene:\n\n{str(e)}\n\n"
+                f"Failed to extract gene:\n\n{msg}\n\n"
                 "Check the log for details."
             ))
         finally:

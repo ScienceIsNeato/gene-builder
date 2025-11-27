@@ -752,7 +752,7 @@ def process_gene(gene_symbol, species="danio_rerio", output_dir="output", canoni
         f.write(audit_content)
     print(f"Audit report saved: {audit_path}")
     
-    return [f['path'] for f in generated_files]
+    return generated_files
 
 def main():
     parser = argparse.ArgumentParser(

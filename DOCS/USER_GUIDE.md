@@ -3,7 +3,7 @@
 ## Usage
 
 ### 1. Start the Application
-Double-click `START_GUI.command`.
+Double-click `extract_gene.command`.
 
 (Note: `.command` files are Mac scripts that open in Terminal. This is normal!)
 

@@ -20,11 +20,11 @@ Extracts zebrafish gene sequences from Ensembl and generates GenBank files for A
 ## Usage
 
 **Option 1: Graphical Interface**
-Double-click `START_GUI.command`.
+Double-click `extract_gene.command`.
 
 **Option 2: Command Line**
 ```bash
-./run_cli.sh GENE_SYMBOL
+./extract_gene.sh GENE_SYMBOL
 ```
 
 Files go to `output/`. Each gene gets a `.gbk` file and `_audit.txt` report.
