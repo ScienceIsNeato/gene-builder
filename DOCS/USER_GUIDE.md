@@ -3,7 +3,9 @@
 ## Usage
 
 ### 1. Start the Application
-Double-click the `run_gui.command` file in the main folder.
+Double-click `START_GUI.command`.
+
+(Note: `.command` files are Mac scripts that open in Terminal. This is normal!)
 
 ### 2. Extract a Gene
 1.  Enter the gene symbol (e.g., `lrfn1`).
