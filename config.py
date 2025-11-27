@@ -110,4 +110,3 @@ For more complex changes, you may need to modify:
 - scripts/gene_to_genbank.py (the main algorithm)
 - gui.py (the interface)
 """
-

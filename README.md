@@ -15,6 +15,8 @@ Extracts zebrafish gene sequences from Ensembl and generates GenBank files for A
 ./setup.sh
 ```
 
+**Note**: This downloads a standalone, known-working Python version (~50MB) to ensure the GUI works perfectly on your Mac without messing with your system settings.
+
 ## Usage
 
 ```bash
@@ -52,8 +54,9 @@ See `TROUBLESHOOTING.md`. The short version: Document the issue, share with an L
 ## Requirements
 
 - Mac (Intel or Apple Silicon)
-- Python 3.8+
 - Internet connection
+
+(Python is handled automatically by setup script)
 
 ## Status
 

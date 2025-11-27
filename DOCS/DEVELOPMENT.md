@@ -21,14 +21,24 @@ GUI → config.py → gene_to_genbank.py → Ensembl API → GenBank files
 
 ## Development Setup
 
+### Architecture: Self-Contained Runtime
+To avoid "Python Dependency Hell" and broken system Pythons (common on macOS with Homebrew), `setup.sh` automatically:
+1.  Downloads a standalone Python build (Indygreg's python-build-standalone).
+2.  Installs it locally to `.local_python/`.
+3.  Creates the virtual environment using *that* specific binary.
+
+This guarantees the GUI (Tkinter) works universally.
+
+### Setup Steps
+
 1.  **Clone & Setup**:
     ```bash
     git clone <repo_url>
     cd gene-builder
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+    ./setup.sh
     ```
+
+    This handles everything. No need to manually create venv.
 
 2.  **Run GUI**:
     ```bash

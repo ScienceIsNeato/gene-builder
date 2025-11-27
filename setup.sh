@@ -1,59 +1,78 @@
 #!/bin/bash
 # Gene Builder Setup Script
-# One-click setup for Mac users
+# Downloads a standalone Python to ensure everything (including GUI) works perfectly.
 
-set -e  # Exit on error
+set -e
 
-echo "🧬 Gene Builder - Setup Script"
-echo "================================"
-echo ""
+echo "🧬 Gene Builder - Setup"
+echo "========================"
 
-# Check if Python 3 is installed
-if ! command -v python3 &> /dev/null; then
-    echo "❌ Python 3 is not installed."
-    echo "Please install Python 3 from: https://www.python.org/downloads/"
+# 1. Determine Architecture
+ARCH=$(uname -m)
+OS=$(uname -s)
+
+if [[ "$OS" != "Darwin" ]]; then
+    echo "❌ This script is for macOS only."
     exit 1
 fi
 
-echo "✓ Python 3 found: $(python3 --version)"
-echo ""
+# Python Build Standalone Release (20240224)
+# Using 3.10 as it's extremely stable
+PBS_RELEASE="20240224"
+PBS_VERSION="3.10.13"
 
-# Create virtual environment if it doesn't exist
+if [[ "$ARCH" == "arm64" ]]; then
+    # Apple Silicon
+    URL="https://github.com/indygreg/python-build-standalone/releases/download/$PBS_RELEASE/cpython-$PBS_VERSION+20240224-aarch64-apple-darwin-install_only.tar.gz"
+else
+    # Intel Mac
+    URL="https://github.com/indygreg/python-build-standalone/releases/download/$PBS_RELEASE/cpython-$PBS_VERSION+20240224-x86_64-apple-darwin-install_only.tar.gz"
+fi
+
+# 2. Download and Install Portable Python
+if [ ! -d ".local_python" ]; then
+    echo "📦 Downloading standalone Python (ensures GUI works)..."
+    echo "   URL: $URL"
+    curl -L -o python.tar.gz "$URL" --progress-bar
+    
+    echo "📦 Extracting..."
+    tar -xzf python.tar.gz
+    mv python .local_python
+    rm python.tar.gz
+    echo "✓ Python installed locally to .local_python/"
+else
+    echo "✓ Local Python already present"
+fi
+
+# 3. Create Virtual Environment
 if [ ! -d "venv" ]; then
-    echo "📦 Creating virtual environment..."
-    python3 -m venv venv
+    echo "🔧 Creating virtual environment..."
+    # Use our local python to create the venv
+    ./.local_python/bin/python3 -m venv venv
     echo "✓ Virtual environment created"
 else
     echo "✓ Virtual environment already exists"
 fi
-echo ""
 
-# Activate virtual environment
-echo "🔧 Installing dependencies..."
+# 4. Install Dependencies
+echo "📥 Installing libraries..."
 source venv/bin/activate
-
-# Upgrade pip quietly
 pip install --upgrade pip --quiet
-
-# Install requirements
 pip install -r requirements.txt --quiet
+echo "✓ Libraries installed"
 
-echo "✓ Dependencies installed"
-echo ""
-
-# Create output directory
+# 5. Finalize
 mkdir -p output
-echo "✓ Output directory ready"
-echo ""
 
-echo "✅ Setup complete!"
 echo ""
-echo "Next steps:"
-echo "   ./extract_gene.sh GENE_SYMBOL"
+echo "✅ Setup Complete!"
+echo "=================================================="
+echo "🚀 HOW TO RUN:"
 echo ""
-echo "Example:"
+echo "Option 1 (Easiest):"
+echo "   Double-click 'run_gui.command' in this folder."
+echo ""
+echo "Option 2 (Command Line):"
 echo "   ./extract_gene.sh lrfn1"
+echo "=================================================="
 echo ""
-echo "See START_HERE.md for more info"
-echo ""
-

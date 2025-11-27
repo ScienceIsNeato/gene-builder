@@ -28,9 +28,7 @@ Common changes:
 
 **Gene not found**: Verify it exists in Ensembl. Check spelling.
 
-**Setup fails**: Make sure Python 3.8+ is installed.
-
-**GUI won't start**: Ensure you ran `./setup.sh` once. If it still fails, try running `./extract_gene.sh lrfn1` from the terminal to see error messages.
+**GUI won't start**: Ensure you ran `./setup.sh` once. The setup script fixes common Mac issues automatically.
 
 ## Understanding Output
 
