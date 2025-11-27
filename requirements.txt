@@ -1,3 +1,6 @@
+# Python package requirements
+# System requirement: macOS 10.15 (Catalina) or later (Intel or Apple Silicon)
+
 biopython>=1.81
 requests>=2.28.0
 

@@ -68,10 +68,10 @@ All settings are in one file: **`config.py`**.
 
 ## Documentation
 
-*   `TROUBLESHOOTING.md` - Fix issues in 5 minutes using AI.
+*   `TROUBLESHOOTING.md` - Common issues and solutions.
 *   `DOCS/USER_GUIDE.md` - Detailed usage instructions.
 *   `DOCS/AGENTS.md` - Share this with AI to help you modify the tool.
 
 ## Requirements
-*   Mac (Intel or Apple Silicon)
+*   macOS 10.15 (Catalina) or later (Intel or Apple Silicon)
 *   Internet Connection

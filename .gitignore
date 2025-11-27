@@ -12,11 +12,7 @@ dist/
 build/
 
 # Output files (generated)
-output/*.gbk
-output/*.ape
-output/*.txt
-
-# Keep output directory but not contents
+output/*
 !output/.gitkeep
 
 # IDE
