@@ -1,0 +1,48 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Output files (generated)
+output/*.gbk
+output/*.ape
+output/*.txt
+
+# Keep output directory but not contents
+!output/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env
+.envrc
+
+# Personal notes (but keep template/training docs)
+notes.txt
+scratch/
+temp/
+
+# Keep training examples
+!training/**/expected_output/*.gbk
+cursor-rules/
+.cursor
+.cursorrules
