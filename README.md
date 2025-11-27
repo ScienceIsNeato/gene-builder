@@ -1,71 +1,76 @@
-# Gene Builder
+# 🧬 Gene Builder
 
-Extracts zebrafish gene sequences from Ensembl and generates GenBank files for APE.
+**Extract zebrafish gene sequences from Ensembl and generate APE-compatible files in seconds.**
 
-## Features
+![Gene Builder GUI](https://via.placeholder.com/800x500.png?text=Gene+Builder+GUI+Screenshot)
 
-- Exon numbering stays consistent across splice variants
-- Separates 5' UTR, coding exons, and 3' UTR
-- Creates audit reports with Ensembl links for verification
-- All settings in one file (`config.py`)
-
-## Setup
-
-```bash
-./setup.sh
-```
-
-**Note**: This downloads a standalone, known-working Python version (~50MB) to ensure the GUI works perfectly on your Mac without messing with your system settings.
-
-## Usage
-
-**Option 1: Graphical Interface**
-Double-click `extract_gene.command`.
-
-**Option 2: Command Line**
-```bash
-./extract_gene.sh GENE_SYMBOL
-```
-
-Files go to `output/`. Each gene gets a `.gbk` file and `_audit.txt` report.
-
-## Customizing
-
-Edit `config.py`:
-- Exon colors
-- Default species
-- Filtering behavior
-
-For help modifying: Copy `config.py` to ChatGPT/Claude, ask for changes.
-
-## Output
-
-**GenBank files**: Color-coded exons, labeled UTRs, APE-compatible
-
-**Audit reports**: Lists all decisions with Ensembl verification links
-
-## When Things Go Wrong
-
-See `TROUBLESHOOTING.md`. The short version: Document the issue, share with an LLM along with `DOCS/AGENTS.md` and `config.py`, apply the fix. Takes about 5 minutes.
-
-## Documentation
-
-- `START_HERE.md` - Quick overview
-- `TROUBLESHOOTING.md` - Fixing issues
-- `DOCS/USER_GUIDE.md` - Detailed usage
-- `DOCS/AGENTS.md` - For LLM help
-
-## Requirements
-
-- Mac (Intel or Apple Silicon)
-- Internet connection
-
-(Python is handled automatically by setup script)
-
-## Status
-
-Works well for simple genes. For complex cases, check the audit report and validate.
+**Why use this?**
+1.  **Save Time**: 20 minutes of manual work → 30 seconds.
+2.  **Trust**: Every run generates an **Audit Report** with direct Ensembl links to verify decisions.
+3.  **Analysis**: Exon numbers stay consistent across splice variants, making comparison trivial.
 
 ---
 
-Questions? See `DOCS/` or open an issue.
+## 🚀 Quick Start
+
+### 1. Setup (One-time)
+Open Terminal and run:
+
+```bash
+git clone https://github.com/ScienceIsNeato/gene-builder.git
+cd gene-builder
+./setup.sh
+```
+
+### 2. Run
+Double-click **`extract_gene.command`**
+
+### 3. Extract & Verify
+1.  Enter a gene symbol (e.g., `lrfn1`).
+2.  Click **Extract Gene**.
+3.  Open the output folder to see your `.gbk` files and Audit Report.
+
+---
+
+## Output Examples
+
+### GenBank Files (APE/SnapGene)
+Color-coded exons, correct UTRs, and metadata.
+
+### Audit Reports (Text)
+Every decision documented. Makes validation a 2-minute checklist instead of a research project.
+
+```text
+GENE: lrfn1
+✅ KEPT: lrfn1-202 [CANONICAL]
+   Link: https://ensembl.org/...
+❌ FILTERED: lrfn1-201 - non-canonical
+
+VALIDATION CHECKLIST (2 min)
+[ ] Transcript count matches Ensembl
+[ ] Exon boundaries match links above
+```
+
+---
+
+## Customizing
+
+All settings are in one file: **`config.py`**.
+
+*   Change exon colors
+*   Set default species
+*   Adjust filtering
+
+**Tip**: Copy `config.py` to ChatGPT/Claude and ask: *"Change the exon colors to blue and gold."*
+
+---
+
+## Documentation
+
+*   `TROUBLESHOOTING.md` - Fix issues in 5 minutes using AI.
+*   `DOCS/USER_GUIDE.md` - Detailed usage instructions.
+*   `DOCS/AGENTS.md` - Share this with AI to help you modify the tool.
+
+## Requirements
+*   Mac (Intel or Apple Silicon)
+*   Internet Connection
