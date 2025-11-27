@@ -4,6 +4,10 @@
 
 ![Gene Builder GUI](DOCS/images/gui_success.png)
 
+## Purpose
+
+Gene Builder is designed for PIs to automate routine gene sequence extraction and as a teaching tool for sharing analytical workflows with the lab. The tool cannot and should not be trusted blindly—it shows its work through comprehensive audit reports and auto-generated citations. The design philosophy prioritizes 100% transparency in all decision-making processes. This early V1 release is intended to be immediately useful as a data exploration and validation tool, as well as a teaching resource for understanding gene transcriptions, alternative splicing, and how AI can assist in automating biological analysis workflows.
+
 ---
 
 ## 🚀 Quick Start
