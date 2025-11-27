@@ -180,8 +180,13 @@ class GeneBuilderGUI:
             
             self.log("-" * 60)
             self.log(f"✅ Success! Generated {len(files)} file(s):")
+            if files:
+                # Extract directory from the first file path for display
+                output_subdir = os.path.dirname(files[0]['path'])
+                self.log(f"📁 Output folder: {os.path.basename(output_subdir)}")
+                
             for f in files:
-                self.log(f"   📄 {os.path.basename(f)}")
+                self.log(f"   📄 {f['filename']}")
             self.log("")
             self.log(f"💾 Files saved to: {os.path.abspath(config.OUTPUT_DIR)}")
             
@@ -189,7 +194,7 @@ class GeneBuilderGUI:
             self.root.after(0, lambda: messagebox.showinfo(
                 "Success!",
                 f"Generated {len(files)} GenBank file(s)\n\n"
-                f"Files are in the '{config.OUTPUT_DIR}' folder.\n"
+                f"Files are in the output folder.\n"
                 f"You can open them in ApE or SnapGene."
             ))
             

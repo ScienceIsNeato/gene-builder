@@ -653,7 +653,12 @@ def process_gene(gene_symbol, species="danio_rerio", output_dir="output", canoni
         List of generated file paths
     """
     # Create output directory
-    os.makedirs(output_dir, exist_ok=True)
+    run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    run_dir_name = f"{gene_symbol}_{run_timestamp}"
+    run_output_dir = os.path.join(output_dir, run_dir_name)
+    os.makedirs(run_output_dir, exist_ok=True)
+    
+    print(f"Saving results to: {run_output_dir}")
     
     # Get gene data
     gene_data = get_gene_data(gene_symbol, species)
@@ -714,7 +719,7 @@ def process_gene(gene_symbol, species="danio_rerio", output_dir="output", canoni
         
         # Write to file
         output_filename = f"{gene_symbol}_{transcript_name}.gbk"
-        output_path = os.path.join(output_dir, output_filename)
+        output_path = os.path.join(run_output_dir, output_filename)
         print(f"  Writing to {output_path}...")
         write_genbank_file(record, output_path)
         
@@ -742,7 +747,7 @@ def process_gene(gene_symbol, species="danio_rerio", output_dir="output", canoni
     )
     
     audit_filename = f"{gene_symbol}_audit_report.txt"
-    audit_path = os.path.join(output_dir, audit_filename)
+    audit_path = os.path.join(run_output_dir, audit_filename)
     with open(audit_path, 'w') as f:
         f.write(audit_content)
     print(f"Audit report saved: {audit_path}")
