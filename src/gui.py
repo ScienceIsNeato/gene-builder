@@ -27,39 +27,51 @@ class GeneBuilderGUI:
         self.root.title(config.WINDOW_TITLE)
         self.root.geometry(f"{config.WINDOW_SIZE[0]}x{config.WINDOW_SIZE[1]}")
         
-        # Make window not resizable for simplicity
-        self.root.resizable(False, False)
+        # Allow resizing
+        self.root.resizable(True, True)
         
         self.create_widgets()
         
     def create_widgets(self):
-        # Main frame with padding
-        main_frame = ttk.Frame(self.root, padding="20")
-        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        # Main container to hold everything with padding
+        container = ttk.Frame(self.root, padding="20")
+        container.pack(fill=tk.BOTH, expand=True)
         
-        # Title
-        title = ttk.Label(main_frame, text="🧬 Gene Builder", font=('Helvetica', 18, 'bold'))
-        title.grid(row=0, column=0, columnspan=2, pady=(0, 10))
+        # Configure grid columns to expand
+        container.columnconfigure(1, weight=1)
+        container.rowconfigure(4, weight=1)  # Log area expands
         
-        subtitle = ttk.Label(main_frame, text="Extract gene sequences from Ensembl", 
-                            font=('Helvetica', 10))
-        subtitle.grid(row=1, column=0, columnspan=2, pady=(0, 20))
+        # Title Area
+        title_frame = ttk.Frame(container)
+        title_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 20))
         
-        # Gene symbol input
-        ttk.Label(main_frame, text="Gene Symbol:", font=('Helvetica', 11, 'bold')).grid(
-            row=2, column=0, sticky=tk.W, pady=5)
+        title = ttk.Label(title_frame, text="🧬 Gene Builder", font=('Helvetica', 24, 'bold'))
+        title.pack()
         
-        self.gene_entry = ttk.Entry(main_frame, width=30, font=('Helvetica', 11))
-        self.gene_entry.grid(row=2, column=1, sticky=(tk.W, tk.E), pady=5, padx=(10, 0))
+        subtitle = ttk.Label(title_frame, text="Extract gene sequences from Ensembl", 
+                            font=('Helvetica', 12))
+        subtitle.pack(pady=(5, 0))
+        
+        # Input Area
+        input_frame = ttk.Frame(container)
+        input_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(0, 20))
+        input_frame.columnconfigure(1, weight=1)
+        
+        # Gene Symbol
+        ttk.Label(input_frame, text="Gene Symbol:", font=('Helvetica', 13, 'bold')).grid(
+            row=0, column=0, sticky="w", pady=10)
+        
+        self.gene_entry = ttk.Entry(input_frame, font=('Helvetica', 13))
+        self.gene_entry.grid(row=0, column=1, sticky="ew", padx=(15, 0), pady=10)
         self.gene_entry.insert(0, "lrfn1")
         
-        # Species selection
-        ttk.Label(main_frame, text="Species:", font=('Helvetica', 11, 'bold')).grid(
-            row=3, column=0, sticky=tk.W, pady=5)
+        # Species
+        ttk.Label(input_frame, text="Species:", font=('Helvetica', 13, 'bold')).grid(
+            row=1, column=0, sticky="w", pady=10)
         
         self.species_var = tk.StringVar(value=config.DEFAULT_SPECIES)
-        species_combo = ttk.Combobox(main_frame, textvariable=self.species_var, 
-                                     width=28, state='readonly')
+        species_combo = ttk.Combobox(input_frame, textvariable=self.species_var, 
+                                     font=('Helvetica', 13), state='readonly')
         species_combo['values'] = (
             'danio_rerio (Zebrafish)',
             'homo_sapiens (Human)',
@@ -67,41 +79,43 @@ class GeneBuilderGUI:
             'rattus_norvegicus (Rat)'
         )
         species_combo.current(0)
-        species_combo.grid(row=3, column=1, sticky=(tk.W, tk.E), pady=5, padx=(10, 0))
+        species_combo.grid(row=1, column=1, sticky="ew", padx=(15, 0), pady=10)
         
-        # Canonical only checkbox
+        # Checkbox
         self.canonical_var = tk.BooleanVar(value=config.DEFAULT_CANONICAL_ONLY)
-        canonical_check = ttk.Checkbutton(main_frame, 
+        canonical_check = ttk.Checkbutton(container, 
                                          text="Only extract canonical transcript (recommended)",
                                          variable=self.canonical_var)
-        canonical_check.grid(row=4, column=0, columnspan=2, sticky=tk.W, pady=10)
+        # Note: Checkbutton font styling is platform dependent, often ignored
+        canonical_check.grid(row=2, column=0, columnspan=2, sticky="w", pady=(0, 20))
         
-        # Extract button
-        self.extract_btn = ttk.Button(main_frame, text="Extract Gene", 
-                                      command=self.extract_gene,
-                                      width=20)
-        self.extract_btn.grid(row=5, column=0, columnspan=2, pady=15)
+        # Extract Button
+        self.extract_btn = ttk.Button(container, text="Extract Gene", 
+                                      command=self.extract_gene)
+        self.extract_btn.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(0, 20), ipady=5)
+        
+        # Log Area (Expands)
+        log_frame = ttk.LabelFrame(container, text="Process Log", padding="10")
+        log_frame.grid(row=4, column=0, columnspan=2, sticky="nsew")
+        log_frame.columnconfigure(0, weight=1)
+        log_frame.rowconfigure(0, weight=1)
+        
+        self.log_text = scrolledtext.ScrolledText(log_frame, width=60, height=10, 
+                                                  font=('Monaco', 11), wrap=tk.WORD)
+        self.log_text.grid(row=0, column=0, sticky="nsew")
         
         # Progress bar
-        self.progress = ttk.Progressbar(main_frame, mode='indeterminate', length=300)
-        self.progress.grid(row=6, column=0, columnspan=2, pady=5)
+        self.progress = ttk.Progressbar(container, mode='indeterminate')
+        self.progress.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(15, 5))
         
-        # Output log
-        ttk.Label(main_frame, text="Log:", font=('Helvetica', 11, 'bold')).grid(
-            row=7, column=0, columnspan=2, sticky=tk.W, pady=(10, 5))
-        
-        self.log_text = scrolledtext.ScrolledText(main_frame, width=65, height=15, 
-                                                  font=('Monaco', 9), wrap=tk.WORD)
-        self.log_text.grid(row=8, column=0, columnspan=2, pady=5)
-        
-        # Buttons at bottom
-        button_frame = ttk.Frame(main_frame)
-        button_frame.grid(row=9, column=0, columnspan=2, pady=10)
+        # Bottom Buttons
+        button_frame = ttk.Frame(container)
+        button_frame.grid(row=6, column=0, columnspan=2, pady=(10, 0))
         
         ttk.Button(button_frame, text="Open Output Folder", 
-                  command=self.open_output).pack(side=tk.LEFT, padx=5)
+                  command=self.open_output).pack(side=tk.LEFT, padx=10)
         ttk.Button(button_frame, text="Clear Log", 
-                  command=self.clear_log).pack(side=tk.LEFT, padx=5)
+                  command=self.clear_log).pack(side=tk.LEFT, padx=10)
         
     def log(self, message):
         """Add message to log"""
@@ -122,7 +136,7 @@ class GeneBuilderGUI:
             return
         
         # Start progress bar
-        self.progress.start()
+        self.progress.start(10) # Speed up animation
         self.extract_btn.config(state='disabled')
         self.clear_log()
         
@@ -207,4 +221,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
