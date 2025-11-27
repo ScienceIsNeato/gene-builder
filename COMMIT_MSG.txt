@@ -1,0 +1,2 @@
+docs: remove sales-pitch language and specify macOS version requirements
+

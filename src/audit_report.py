@@ -54,20 +54,26 @@ def generate_audit_report(gene_data, transcripts_kept, transcripts_filtered,
     
     lines.append("")
     
-    # Validation
-    lines.append("VALIDATION (2-minute checklist)")
+    # Sanity Checks
+    lines.append("SANITY CHECKS")
     lines.append("-" * 80)
-    lines.append("[ ] Transcript count matches Ensembl")
-    lines.append("[ ] Exon boundaries match Ensembl links above")
-    lines.append("[ ] Sequences look correct in APE")
+    ensembl_gene_link = f"https://ensembl.org/Danio_rerio/Gene/Summary?g={gene_id}"
+    lines.append(f"1. Click: {ensembl_gene_link}")
+    lines.append(f"   Confirm gene '{gene_name}' is present and location matches 'chr{chrom}:{start:,}-{end:,}'.")
+    lines.append("")
+    for t in transcripts_kept:
+        tid = t.get('id')
+        tname = t.get('display_name')
+        lines.append(f"2. For transcript {tname}:")
+        lines.append(f"   Click: https://ensembl.org/Danio_rerio/Transcript/Exons?t={tid}")
+        lines.append(f"   Verify exon boundaries match the FEATURES ANNOTATED section above.")
     lines.append("")
     
-    # Methodology (publication-ready)
-    lines.append("METHODOLOGY (copy/paste for papers)")
+    # Methodology (work in progress - to be refined with more useful data)
+    lines.append("METHODOLOGY (work in progress)")
     lines.append("-" * 80)
-    lines.append("Gene sequences extracted using Gene Builder v1.0")
-    lines.append("(github.com/USERNAME/gene-builder) from Ensembl Release 110")
-    lines.append("via REST API. CDS boundaries validated against Ensembl annotations.")
+    lines.append("Gene sequences extracted from Ensembl via REST API.")
+    lines.append("CDS boundaries validated against Ensembl annotations.")
     lines.append("All decisions documented with cross-references for verification.")
     lines.append("")
     

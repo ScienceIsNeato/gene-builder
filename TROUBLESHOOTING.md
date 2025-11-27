@@ -2,9 +2,7 @@
 
 ## When Output is Wrong
 
-If you get incorrect results, you can fix it. Here's how:
-
-### The Process (about 5 minutes)
+### Fix Process
 
 1. **Document the issue**:
    - Gene name: `sox2`
@@ -27,8 +25,6 @@ If you get incorrect results, you can fix it. Here's how:
    - Save and test again
 
 5. **Verify**: Check audit report, confirm fix works
-
-Each fix makes the tool work better for future genes.
 
 ## Common Issues
 

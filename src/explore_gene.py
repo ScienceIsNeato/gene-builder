@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Exploration script to query Ensembl REST API for LRFN1 and examine available data.
-This helps us understand the data structure before building the full tool.
+Exploration script to query Ensembl REST API for a gene and examine available data.
+This helps understand the data structure before building the full tool.
 """
 
 import requests
@@ -16,7 +16,7 @@ def ensembl_request(endpoint, params=None):
     Make a request to Ensembl REST API with rate limiting.
     
     Args:
-        endpoint: API endpoint (e.g., "/lookup/symbol/danio_rerio/lrfn1")
+        endpoint: API endpoint (e.g., "/lookup/symbol/danio_rerio/gene_symbol")
         params: Optional query parameters
     
     Returns:
@@ -124,11 +124,17 @@ def explore_gene(gene_symbol="lrfn1", species="danio_rerio"):
         time.sleep(0.5)  # Be nice to the API
 
 def main():
+    import sys
+    
     print("\nGene Builder - Ensembl REST API Exploration Tool")
     print("=" * 80)
     
+    # Get gene symbol from command line or use default
+    gene_symbol = sys.argv[1] if len(sys.argv) > 1 else "lrfn1"
+    species = sys.argv[2] if len(sys.argv) > 2 else "danio_rerio"
+    
     try:
-        explore_gene("lrfn1", "danio_rerio")
+        explore_gene(gene_symbol, species)
     except Exception as e:
         print(f"\nError: {e}")
         import traceback
