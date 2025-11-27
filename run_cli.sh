@@ -22,6 +22,13 @@ if [ ! -d "venv" ]; then
     exit 1
 fi
 
-# Activate environment and run the python script
+# Activate environment
 source venv/bin/activate
+
+# Set Tcl/Tk paths (just in case)
+REPO_ROOT="$(pwd)"
+export TCL_LIBRARY="$REPO_ROOT/.local_python/lib/tcl8.6"
+export TK_LIBRARY="$REPO_ROOT/.local_python/lib/tk8.6"
+
+# Run the python script
 python src/gene_to_genbank.py "$1" --canonical-only

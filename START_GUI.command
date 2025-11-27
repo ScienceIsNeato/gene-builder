@@ -3,9 +3,6 @@
 # =================
 # This file is a macOS shortcut. Double-clicking it opens a Terminal window
 # and launches the Gene Builder Graphical Interface.
-#
-# It does exactly the same thing as running "python3 src/gui.py" manually,
-# but sets up the environment for you first.
 
 cd "$(dirname "$0")"
 
@@ -18,8 +15,14 @@ if [ ! -d "venv" ]; then
     exit 1
 fi
 
-# 1. Activate the isolated Python environment (so we use our working python, not the system's)
+# 1. Activate the isolated Python environment
 source venv/bin/activate
 
-# 2. Launch the GUI program
+# 2. Set Tcl/Tk paths for the portable python
+# This is critical because the portable build expects hardcoded paths
+REPO_ROOT="$(pwd)"
+export TCL_LIBRARY="$REPO_ROOT/.local_python/lib/tcl8.6"
+export TK_LIBRARY="$REPO_ROOT/.local_python/lib/tk8.6"
+
+# 3. Launch the GUI program
 python3 src/gui.py
